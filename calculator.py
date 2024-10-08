@@ -1,4 +1,5 @@
 from GlobalVariables import memory, history
+from AppSettings import AppSettings
 
 class Calculator:
     
@@ -120,9 +121,13 @@ class Calculator:
 
             result = self.calculate(num1, num2, operator)
 
+            decimal_places = input("Enter the number of decimal places (or press Enter for default): ").strip()
+
+            formatted_result = AppSettings.format_result(result, decimal_places)
+
             expression = f"{num1} {operator} {num2 if num2 is not None else ''}"
-            self.add_to_history(expression, result)
-            print(f"Result: {result}")
+            self.add_to_history(expression, formatted_result)
+            print(f"Result: {formatted_result}")
 
             memory_command = input("Enter memory command (MC, MR, MS, M+) or press Enter to skip: ").strip().upper()
             if memory_command == 'MC':
